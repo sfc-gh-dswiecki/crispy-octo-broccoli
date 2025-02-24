@@ -6,5 +6,8 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "pipdeptree>=2.23.4",
-    "streamlit==1.35.0",
+    "streamlit==1.41.1",
+    "snowflake==1.0.5",
+    "snowflake-snowpark-python==1.28.0",
+    "snowflake-ml-python==1.7.4"
 ]

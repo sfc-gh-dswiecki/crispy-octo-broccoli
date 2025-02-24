@@ -1,44 +1,51 @@
-import altair as alt
-import numpy as np
-import pandas as pd
 import streamlit as st
+from snowflake.cortex import Complete
 
-"""
-# Welcome to Streamlit! dswiecki 10:00 21-02-2025
+st.title("Chat with models in Snowflake Cortex", anchor=False)
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Instructions appended to every chat, and always used
+instructions = "Be concise. Do not hallucinate"
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
-
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
-
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
-
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
-
-df = pd.DataFrame(
-    {
-        "x": x,
-        "y": y,
-        "idx": indices,
-        "rand": np.random.randn(num_points),
-    }
+# Choose a Cortex model
+model = st.selectbox(
+    "Choose a model",
+    [
+        "snowflake-arctic",
+        "mistral-large",
+        "reka-flash",
+        "llama2-70b-chat",
+        "mixtral-8x7b",
+        "mistral-7b",
+    ],
 )
 
-st.altair_chart(
-    alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    )
-)
+# Initialize message history in session state
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [{"role": "assistant", "content": "how can I help?"}]
+
+# Show the conversation history
+st.subheader(f"Conversation with {model}", anchor=False, divider="gray")
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+
+prompt = st.chat_input("Type your message")
+
+if prompt:
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    with st.chat_message("assistant"):
+        context = ",".join(
+            f"role:{message['role']} content:{message['content']}"
+            for message in st.session_state.messages
+        )
+        response = Complete(
+            model, f"Instructions:{instructions}, Context:{context}, Prompt:{prompt}"
+        )
+        st.markdown(response)
+
+        st.session_state.messages.append({"role": "assistant", "content": response})
