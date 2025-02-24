@@ -218,6 +218,18 @@ wheels = [
 ]
 
 [[package]]
+name = "branca"
+version = "0.6.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "jinja2" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/bb/66/e3591bc59d0685668cf9bb451ed527b0c261cfa2afedbe72422442586ace/branca-0.6.0.tar.gz", hash = "sha256:55949855214504c7583b71b9a03a84dce2e96a84027613bb53b42d04844ce24e", size = 26092 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a6/18/cea6374623d82efc292996997cee0a13ae99359c7e66db22f92dc8484dd1/branca-0.6.0-py3-none-any.whl", hash = "sha256:ae706fc7a88dd0296a58bb11c0cb3c6be358491a3b0abee08fe16b4db17814c0", size = 24553 },
+]
+
+[[package]]
 name = "cachetools"
 version = "5.5.1"
 source = { registry = "https://pypi.org/simple" }
@@ -363,17 +375,23 @@ name = "crispy-octo-broccoli"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "branca" },
     { name = "pipdeptree" },
+    { name = "plotly" },
     { name = "snowflake" },
     { name = "snowflake-ml-python" },
+    { name = "snowflake-snowpark-python" },
     { name = "streamlit" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "branca", specifier = "==0.6.0" },
     { name = "pipdeptree", specifier = ">=2.23.4" },
+    { name = "plotly", specifier = "==5.19.0" },
     { name = "snowflake", specifier = "==1.0.5" },
     { name = "snowflake-ml-python", specifier = "==1.7.4" },
+    { name = "snowflake-snowpark-python", specifier = "==1.28.0" },
     { name = "streamlit", specifier = "==1.41.1" },
 ]
 
@@ -873,6 +891,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/13/fc/128cc9cb8f03208bdbf93d3aa862e16d376844a14f9a0ce5cf4507372de4/platformdirs-4.3.6.tar.gz", hash = "sha256:357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907", size = 21302 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/3c/a6/bc1012356d8ece4d66dd75c4b9fc6c1f6650ddd5991e421177d9f8f671be/platformdirs-4.3.6-py3-none-any.whl", hash = "sha256:73e575e1408ab8103900836b97580d5307456908a03e92031bab39e4554cc3fb", size = 18439 },
+]
+
+[[package]]
+name = "plotly"
+version = "5.19.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+    { name = "tenacity" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/61/15/d0dc5efcc1a905f142e249b595302e574095f83a1c133762d1df68f3ec82/plotly-5.19.0.tar.gz", hash = "sha256:5ea91a56571292ade3e3bc9bf712eba0b95a1fb0a941375d978cc79432e055f4", size = 7849193 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/27/ae/c9fb759b36bc55ccc382b647d1afc23c2a860be8e835f96249996d0aa4df/plotly-5.19.0-py3-none-any.whl", hash = "sha256:906abcc5f15945765328c5d47edaa884bc99f5985fbc61e8cd4dc361f4ff8f5a", size = 15683334 },
 ]
 
 [[package]]
