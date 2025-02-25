@@ -121,7 +121,9 @@ def render_plotly_line_chart(chart_df: pd.DataFrame):
     )
 
 
-st.set_page_config(layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(
+    page_title="NY Pickup Location App", layout="wide", initial_sidebar_state="expanded"
+)
 st.title("NY Pickup Location App :taxi:")
 st.write(
     """An app that visualizes geo-temporal data from NY taxi pickups using H3 and time series.
